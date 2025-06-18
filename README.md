@@ -1,6 +1,6 @@
 # Sudoku Solver
 
-This Python based Sudoku solver utilizes the [Wavefunction Collapse Algorithm](https://github.com/mxgmn/WaveFunctionCollapse) to solve any Sudoku. The Sudoku needs to be given in a .jason file as follows:
+This Python based Sudoku solver utilizes the [Wavefunction Collapse Algorithm](https://github.com/mxgmn/WaveFunctionCollapse) to solve any Sudoku. The Sudoku needs to be given in a .json file as follows:
 ```
   7   | 5 8 3 |   2                [ 
   5 9 | 2     | 3                       [null, 7, null, 5, 8, 3, null, 2, null],
