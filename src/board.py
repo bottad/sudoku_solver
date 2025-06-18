@@ -2,10 +2,9 @@ import json
 import copy
 import time
 from colorama import Fore, Style
-from utility import clear_console
 
-show_progress = False    # if set updates are shown in the full sudoku
-delay = 0.15             # delay in seconds
+from utility import clear_console
+import settings
 
 colors = [
     Fore.GREEN,
@@ -74,6 +73,8 @@ class Board:
         self.grid = [[Cell() for _ in range(9)] for _ in range(9)]
         self.solved_cells = 0
         self.guess_idx = 0
+
+        print(f"Board: show:{settings.show_progress}")
 
     def __str__(self):
         lines = []
@@ -166,12 +167,12 @@ class Board:
         return True
 
     def solve(self):
-        if show_progress:
+        if settings.show_progress:
             print(self)
-            if delay == 0.0:
+            if settings.delay == 0.0:
                 input()
             else:
-                time.sleep(delay)
+                time.sleep(settings.delay)
             clear_console()
 
         if self.solved_cells == 81:
@@ -201,7 +202,7 @@ class Board:
                     cell = self.grid[r][c]
                     if cell.entropy == target_entropy:
                         for guess in list(cell.options):
-                            if show_progress:
+                            if settings.show_progress:
                                 print(f"Guessing {guess} at ({r}, {c}) with entropy {target_entropy} and guess index {self.guess_idx + 1}\n")
                             board_copy = copy.deepcopy(self)
                             board_copy.guess_idx += 1
@@ -214,7 +215,7 @@ class Board:
                                 self.grid = board_copy.grid
                                 self.solved_cells = board_copy.solved_cells
                                 return True
-                            elif show_progress:
+                            elif settings.show_progress:
                                 print(f"Backtracking from guess {guess} at ({r}, {c})")
                         return False  # No valid guess worked for this cell
 
